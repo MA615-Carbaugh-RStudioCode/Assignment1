@@ -234,7 +234,7 @@ sp_out</code></pre>
 <pre class="r"><code># library(esquisse)
 # 
 # esquisser(data = mtcars_mpg2, viewer = &quot;browser&quot;)</code></pre>
-<p>Biulds a smooth ggplot showing the relationship between displacement and mpg.</p>
+<p>Builds a smooth ggplot showing the relationship between displacement and mpg.</p>
 <pre class="r"><code>ggplot(mtcars_mpg2) +
   aes(x = disp, y = mpg) +
   geom_point(shape = &quot;bullet&quot;, size = 4L, colour = &quot;#B22222&quot;) +
@@ -246,6 +246,7 @@ sp_out</code></pre>
 <pre class="r"><code># note that this boxplot cannot be made with esquisse() unless
 # the data is adjusted.  What adjustment is needed?
 
+#A: the cylinder column needs to be a category/factor, which it currently is not.
 
 ggplot(mtcars_mpg2, aes(x=as.factor(cyl), y=mpg)) + 
   geom_boxplot(fill=&quot;slateblue&quot;, alpha=0.2) + 

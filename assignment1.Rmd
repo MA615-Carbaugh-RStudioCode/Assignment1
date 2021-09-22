@@ -3,9 +3,9 @@ title: "assignment1"
 author: "Jack Carbaugh"
 date: "9/22/2021"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -58,7 +58,7 @@ Load esquisse, allowing us to build a ggplot for mtcars with drag n drop
 # esquisser(data = mtcars_mpg2, viewer = "browser")
 ```
 
-Biulds a smooth ggplot showing the relationship between displacement and mpg.
+Builds a smooth ggplot showing the relationship between displacement and mpg.
 ```{r}
 ggplot(mtcars_mpg2) +
   aes(x = disp, y = mpg) +
@@ -72,6 +72,7 @@ Boxplot showing mpg, factored out by the cylinder type
 # note that this boxplot cannot be made with esquisse() unless
 # the data is adjusted.  What adjustment is needed?
 
+#A: the cylinder column needs to be a category/factor, which it currently is not.
 
 ggplot(mtcars_mpg2, aes(x=as.factor(cyl), y=mpg)) + 
   geom_boxplot(fill="slateblue", alpha=0.2) + 
