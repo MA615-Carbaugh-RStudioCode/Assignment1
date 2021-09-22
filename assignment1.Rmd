@@ -1,0 +1,80 @@
+---
+title: "assignment1"
+author: "Jack Carbaugh"
+date: "9/22/2021"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+This loads in the library Tidyverse
+```{r}
+library(tidyverse)
+```
+
+Create the mtcars dataframe
+```{r}
+# call built-in data mtcars.
+data(mtcars)
+```
+
+filter out the row entries where mpg < 20
+```{r}
+# Select only car models where mpg<20
+mtcars_mpg2 <- mtcars[mtcars$mpg < 20,]
+```
+
+Limit columns to just mpg, cyl, disp, hp, gears
+```{r}
+# Reduce the variables to mpg, cyl, disp, hp, gears
+mtcars_mpg2 <- mtcars_mpg2[, c(1,2,3,4,10)]
+```
+
+Source the hand_functions.R file so that we can utilize its functions
+```{r}
+# read the R file hand_functions.R so that it can be used
+# notice that with echo = TRUE 
+source(file = "hand_functions.R", echo = TRUE)
+```
+
+Uses the sum_special function that is present in hand_functions.R. This function takes in a dataframe is input. If the input is not a dataframe, the function is halted and an error meassge is given. Otherwise, the function gets the mean, variance, covariance, and correlation of the dataframe, adds each statistic into a list, and returns said list. We can also tun the debugger line by line (while using line breaks) to test our code.
+
+```{r}
+# Now use the function from hand_functions.R
+sp_out <- sum_special(mtcars_mpg2)
+sp_out
+```
+
+Load esquisse, allowing us to build a ggplot for mtcars with drag n drop
+```{r}
+# library(esquisse)
+# 
+# esquisser(data = mtcars_mpg2, viewer = "browser")
+```
+
+Biulds a smooth ggplot showing the relationship between displacement and mpg.
+```{r}
+ggplot(mtcars_mpg2) +
+  aes(x = disp, y = mpg) +
+  geom_point(shape = "bullet", size = 4L, colour = "#B22222") +
+  geom_smooth(span = 0.5) +
+  theme_minimal()
+```
+
+Boxplot showing mpg, factored out by the cylinder type
+```{r}
+# note that this boxplot cannot be made with esquisse() unless
+# the data is adjusted.  What adjustment is needed?
+
+
+ggplot(mtcars_mpg2, aes(x=as.factor(cyl), y=mpg)) + 
+  geom_boxplot(fill="slateblue", alpha=0.2) + 
+  xlab("cyl")
+```
+
